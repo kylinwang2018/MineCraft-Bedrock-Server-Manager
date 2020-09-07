@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 
@@ -23,6 +24,7 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        public List<SelectListItem> Roles { get; }
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -34,6 +36,11 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            Roles = new List<SelectListItem>
+        {
+            new SelectListItem {Value = "admin", Text ="Admin"},
+            new SelectListItem {Value = "member", Text = "Member"},
+        };
         }
 
         [BindProperty]
@@ -60,6 +67,10 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "UserRole")]
+            public string UserRole { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -78,6 +89,7 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, Input.UserRole);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -24,13 +24,13 @@ namespace MineCraft_Bedrock_Server_Manager.Data
             {
                 Id = ADMIN_ID,
                 Name = "admin",
-                NormalizedName = "admin"
+                NormalizedName = "ADMIN"
             }, 
             new IdentityRole
             {
                 Id = MEMBER_ID,
                 Name = "member",
-                NormalizedName = "member"
+                NormalizedName = "MEMBER"
             });
 
             base.OnModelCreating(builder);

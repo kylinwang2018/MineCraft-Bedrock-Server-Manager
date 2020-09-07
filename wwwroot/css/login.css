@@ -47,9 +47,11 @@ body {
         border-bottom-left-radius: 0;
     }
 
-    .form-signin input[type="forgot-email"] {
-        margin-bottom: -1px;
-    }
+#forgot-email {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0.25rem;
+    border-bottom-left-radius: 0.25rem;
+}
 
     .form-signin input[type="password"] {
         margin-bottom: 10px;

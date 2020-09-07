@@ -44,17 +44,17 @@ namespace MineCraft_Bedrock_Server_Manager.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "4b40f35c-344c-4ca0-b3d5-62271459a047",
-                            ConcurrencyStamp = "3a34740c-401c-446d-9895-542df0972c28",
+                            Id = "5f712ad6-b751-4a6f-98ea-44d6f8df1c1f",
+                            ConcurrencyStamp = "84cfcecd-c7c8-4da4-b063-27d612dbb59b",
                             Name = "admin",
-                            NormalizedName = "admin"
+                            NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "0c1da344-e5ea-4f87-8ede-b965c136aeb4",
-                            ConcurrencyStamp = "d61cc94f-11eb-4568-9c88-a37d3efeeef5",
+                            Id = "2946e71b-1328-4080-89d8-0cdb67a2df89",
+                            ConcurrencyStamp = "306168e6-2804-481f-bb57-bcd8a847c361",
                             Name = "member",
-                            NormalizedName = "member"
+                            NormalizedName = "MEMBER"
                         });
                 });
 
