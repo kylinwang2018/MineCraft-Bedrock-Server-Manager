@@ -22,25 +22,30 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
         public List<SelectListItem> Roles { get; }
-
+        private readonly List<string> _roleNames = new List<string>();
         public RegisterModel(
             UserManager<IdentityUser> userManager,
             SignInManager<IdentityUser> signInManager,
+            RoleManager<IdentityRole> roleManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
-            Roles = new List<SelectListItem>
-        {
-            new SelectListItem {Value = "admin", Text ="Admin"},
-            new SelectListItem {Value = "member", Text = "Member"},
-        };
+            _roleManager = roleManager;
+            Roles = new List<SelectListItem>();
+            foreach (var role in _roleManager.Roles)
+            {
+                Roles.Add(new SelectListItem(){Value = role.NormalizedName, Text = role.Name});
+                _roleNames.Add(role.NormalizedName);
+            }
         }
 
         [BindProperty]
@@ -83,7 +88,7 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && _roleNames.Contains(Input.UserRole))
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);

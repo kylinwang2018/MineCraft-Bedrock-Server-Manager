@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Register";
 }
-
-<h1>@ViewData["Title"]</h1>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">@ViewData["Title"]</h1>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -31,7 +32,6 @@
                 <label asp-for="Input.UserRole"></label>
                 <select asp-for="Input.UserRole"
                         asp-items="@(Model.Roles)" class="form-control">
-                    <option>Please select a role</option>
                 </select>
                 <span asp-validation-for="Input.UserRole" class="text-danger"></span>
             </div>
