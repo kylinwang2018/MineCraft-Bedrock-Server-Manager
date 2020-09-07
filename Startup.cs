@@ -12,6 +12,7 @@ using MineCraft_Bedrock_Server_Manager.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using MineCraft_Bedrock_Server_Manager.Models;
 
 namespace MineCraft_Bedrock_Server_Manager
 {
@@ -33,14 +34,14 @@ namespace MineCraft_Bedrock_Server_Manager
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddRazorRuntimeCompilation();
            services.AddRazorPages();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IWebHostEnvironment env,
-            RoleManager<IdentityRole> roleManager)
+            IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
