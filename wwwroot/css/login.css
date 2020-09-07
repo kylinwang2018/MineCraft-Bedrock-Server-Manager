@@ -47,6 +47,10 @@ body {
         border-bottom-left-radius: 0;
     }
 
+    .form-signin input[type="forgot-email"] {
+        margin-bottom: -1px;
+    }
+
     .form-signin input[type="password"] {
         margin-bottom: 10px;
         border-top-left-radius: 0;
