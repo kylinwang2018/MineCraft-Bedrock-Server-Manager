@@ -25,7 +25,7 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
         {
             return View();
         }
-
+        [Authorize]
         public IActionResult Statistics()
         {
             return View();

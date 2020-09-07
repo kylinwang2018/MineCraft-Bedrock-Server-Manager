@@ -17,7 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
 {
-    [AllowAnonymous]
+    [Authorize(Roles="admin")]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -88,7 +88,12 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid && _roleNames.Contains(Input.UserRole))
+            if (!_roleNames.Contains(Input.UserRole)){
+                ModelState.AddModelError(string.Empty, "Invalid Role");
+                return Page();
+            }
+
+            if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);

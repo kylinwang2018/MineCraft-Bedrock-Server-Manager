@@ -107,11 +107,11 @@
               <li class="nav-item">
                 <a
                 class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
+                 ViewContext.RouteData.Values["Action"].ToString() == "Members" ?
                   "nav-link active" : "nav-link")" 
                 asp-area="" 
-                asp-controller="Home" 
-                asp-action="Privacy">
+                asp-controller="Admin" 
+                asp-action="Members">
                 <span data-feather="user"></span>
                     Members
                 </a>

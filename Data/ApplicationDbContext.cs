@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using MineCraft_Bedrock_Server_Manager.Models;
 
 namespace MineCraft_Bedrock_Server_Manager.Data
 {
@@ -25,7 +26,7 @@ namespace MineCraft_Bedrock_Server_Manager.Data
                 Id = ADMIN_ID,
                 Name = "admin",
                 NormalizedName = "ADMIN"
-            }, 
+            },
             new IdentityRole
             {
                 Id = MEMBER_ID,
@@ -34,7 +35,7 @@ namespace MineCraft_Bedrock_Server_Manager.Data
             });
 
             base.OnModelCreating(builder);
+            #endregion
         }
-        #endregion
     }
 }

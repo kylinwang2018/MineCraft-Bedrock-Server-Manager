@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Members";
+}
+
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">@ViewData["Title"]</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <a class="btn btn-sm btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="/Admin/Members">Add new account</a>
+    </div>
+</div>
