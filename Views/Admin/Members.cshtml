@@ -1,5 +1,6 @@
+@using Microsoft.AspNetCore.Identity
 @model MembersViewModel
-
+@inject UserManager<IdentityUser> UserManager
 @{
     ViewData["Title"] = "Members";
 }
@@ -10,7 +11,76 @@
         <a class="btn btn-sm btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="/Admin/Members">Add new account</a>
     </div>
 </div>
-@foreach (var item in Model.UserWithRoles)
-{
-    <p>@item.Email</p>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col">Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.UserWithRoles)
+        {
+            <tr>
+                <td scope="row">@item.Email</td>
+                <td>@item.Role</td>
+                <td>
+                    <button class="btn btn-sm btn-danger delete-button" data-userId="@item.Id" data-userEmail="@item.Email"
+                            @if (User.Identity.Name == item.Email) { <text>
+                            disabled
+                            </text> }>
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" style="display:none;z-index:9999">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Are you sure</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Cancel">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Are you sure to delete <span id="modalUserEmail"></span>?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-danger" id="delete-confirmed">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+
+    <script>
+        var userId = null;
+        var row = null;
+        $(document).ready(function () {
+            $(".delete-button").click(function () {
+                row = $(this).closest("tr");
+                userId = $(this).attr("data-userId")
+                $("#modalUserEmail").html($(this).attr("data-userEmail"));
+                $("#deleteModal").modal();
+                
+            })
+
+            $("#delete-confirmed").click(function () {
+                $("#deleteModal").modal("hide");
+                row.fadeOut("slow", function () {
+                    // TODO: delete from database
+                });                
+            })
+
+        });
+
+    </script>
 }

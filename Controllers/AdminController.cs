@@ -54,5 +54,12 @@ INNER JOIN [AspNetRoles] AS [a1] ON [a0].[RoleId] = [a1].[Id]";
 
             return model;
         }
+
+        [HttpDelete]
+        public IActionResult DeleteUser(string UserId)
+        {
+
+            return Json(new { status = true, data= GetUserWithRoles().UserWithRoles.ToList() });
+        }
     }
 }
