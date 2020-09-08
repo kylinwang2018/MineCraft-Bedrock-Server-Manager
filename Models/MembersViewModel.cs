@@ -6,6 +6,13 @@ namespace MineCraft_Bedrock_Server_Manager.Models
 {
     public class MembersViewModel : PageModel
     {
-        public List<IdentityUser> Users { get; set; }
+        public ICollection<UserWithRole> UserWithRoles { get; set; }
+    }
+
+    public class UserWithRole
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
     }
 }

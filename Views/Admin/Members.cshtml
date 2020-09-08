@@ -1,3 +1,5 @@
+@model MembersViewModel
+
 @{
     ViewData["Title"] = "Members";
 }
@@ -8,3 +10,7 @@
         <a class="btn btn-sm btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="/Admin/Members">Add new account</a>
     </div>
 </div>
+@foreach (var item in Model.UserWithRoles)
+{
+    <p>@item.Email</p>
+}

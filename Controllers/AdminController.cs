@@ -10,7 +10,9 @@ using MineCraft_Bedrock_Server_Manager.Models;
 using Microsoft.AspNetCore.Authorization;
 using MineCraft_Bedrock_Server_Manager.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace MineCraft_Bedrock_Server_Manager.Controllers
 {
@@ -19,18 +21,38 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AdminController(ILogger<HomeController> logger,UserManager<IdentityUser> userManager)
+        public AdminController(
+            ILogger<HomeController> logger,
+            UserManager<IdentityUser> userManager,
+            RoleManager<IdentityRole> roleManager
+            )
         {
             _logger = logger;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Members()
         {
-            //var users = from u in _userManager.Users.Include(u => u.UserRoles).ThenInclude(ur => ur.Role) select u;
+            return View(GetUserWithRoles());
+        }
 
-            return View();
+        private MembersViewModel GetUserWithRoles()
+        {
+            MembersViewModel model = new MembersViewModel();
+            using (SqliteCommand cmd = new SqliteCommand())
+            {
+                cmd.CommandText = @"
+SELECT [a].[Id] AS [Id], [a].[Email], [a1].[Name] AS [Role]
+FROM [AspNetUsers] AS [a]
+INNER JOIN [AspNetUserRoles] AS [a0] ON [a].[Id] = [a0].[UserId]
+INNER JOIN [AspNetRoles] AS [a1] ON [a0].[RoleId] = [a1].[Id]";
+                model.UserWithRoles = SQLiteHelper.GetDataTableFromSQLAsync<UserWithRole>(cmd, "DefaultConnection").Result;
+            }
+
+            return model;
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MineCraft_Bedrock_Server_Manager
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            SQLiteHelper._configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }

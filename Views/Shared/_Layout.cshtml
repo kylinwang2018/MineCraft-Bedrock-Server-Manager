@@ -18,106 +18,102 @@
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-          <div class="sidebar-sticky">
-            <partial name="_LoginPartial" />
-            <ul class="nav flex-column">
-              <li class="nav-item">
-                <a 
-                class="@((ViewContext.RouteData.Values["Action"] != null && 
-                ViewContext.RouteData.Values["Action"].ToString() == "Index") ? 
-                "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Home" 
-                asp-action="Index">
-                <span data-feather="home"></span>
-                    Dashboard
-                </a>
-              </li>
-              <li class="nav-item">
-                <a 
-                class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Statistics" ? 
-                 "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Home" 
-                asp-action="Statistics">
-                <span data-feather="bar-chart-2"></span>
-                    Statistics
-                </a>
-              </li>
+            <div class="sidebar-sticky">
+                <partial name="_LoginPartial" />
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="@((ViewContext.RouteData.Values["Action"] != null &&
+                ViewContext.RouteData.Values["Action"].ToString() == "Index") ?
+                "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Index">
+                            <span data-feather="home"></span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@(ViewContext.RouteData.Values["Action"] != null &&
+                 ViewContext.RouteData.Values["Action"].ToString() == "Statistics" ?
+                 "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Statistics">
+                            <span data-feather="bar-chart-2"></span>
+                            Statistics
+                        </a>
+                    </li>
 
-            </ul>
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Server</span>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a
-                class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ? 
-                 "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Home" 
-                asp-action="Privacy">
-                <span data-feather="activity"></span>
-                    Status
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                class="@(ViewContext.RouteData.Values["Action"] != null &&
+                </ul>
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                    <span>Server</span>
+                </h6>
+                <ul class="nav flex-column mb-2">
+                    <li class="nav-item">
+                        <a class="@(ViewContext.RouteData.Values["Action"] != null &&
                  ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
-                  "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Home" 
-                asp-action="Privacy">
-                <span data-feather="refresh-cw"></span>
-                    Update
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                class="@(ViewContext.RouteData.Values["Action"] != null &&
+                 "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Privacy">
+                            <span data-feather="activity"></span>
+                            Status
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@(ViewContext.RouteData.Values["Action"] != null &&
                  ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
-                  "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Home" 
-                asp-action="Privacy">
-                <span data-feather="sliders"></span>
-                    Configuation
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                class="@(ViewContext.RouteData.Values["Action"] != null &&
+                  "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Privacy">
+                            <span data-feather="refresh-cw"></span>
+                            Update
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@(ViewContext.RouteData.Values["Action"] != null &&
                  ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
-                  "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Home" 
-                asp-action="Privacy">
-                <span data-feather="unlock"></span>
-                    Permissions
-                </a>
-              </li>
-            </ul>
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-              <span>Admin</span>
-            </h6>
-            <ul class="nav flex-column mb-2">
-              <li class="nav-item">
-                <a
-                class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Members" ?
-                  "nav-link active" : "nav-link")" 
-                asp-area="" 
-                asp-controller="Admin" 
-                asp-action="Members">
-                <span data-feather="user"></span>
-                    Members
-                </a>
-              </li>
-            </ul>
-          </div>
+                  "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Privacy">
+                            <span data-feather="sliders"></span>
+                            Configuation
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@(ViewContext.RouteData.Values["Action"] != null &&
+                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
+                  "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Home"
+                           asp-action="Privacy">
+                            <span data-feather="unlock"></span>
+                            Permissions
+                        </a>
+                    </li>
+                </ul>
+                @if (User.IsInRole("admin"))
+                {
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Admin</span>
+                    </h6>
+                    <ul class="nav flex-column mb-2">
+                        <li class="nav-item">
+                            <a class="@(ViewContext.RouteData.Values["Action"] != null &&
+                                        ViewContext.RouteData.Values["Action"].ToString() == "Members" ?
+                                        "nav-link active" : "nav-link")"
+                               asp-area=""
+                               asp-controller="Admin"
+                               asp-action="Members">
+                                <span data-feather="user"></span>
+                                Members
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </div>
         </nav>
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">

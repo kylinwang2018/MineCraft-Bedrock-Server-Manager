@@ -87,7 +87,7 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content("~/");
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (!_roleNames.Contains(Input.UserRole)){
                 ModelState.AddModelError(string.Empty, "Invalid Role");
                 return Page();
@@ -119,7 +119,7 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }
