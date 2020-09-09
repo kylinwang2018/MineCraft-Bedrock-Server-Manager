@@ -55,11 +55,15 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account
                     pageHandler: null,
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
-
-                await _emailSender.SendEmailAsync(
+                try{
+                    await _emailSender.SendEmailAsync(
                     Input.Email,
                     "Reset Password",
                     $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                }catch{
+                    
+                }
+                
 
                 return RedirectToPage("./ForgotPasswordConfirmation");
             }

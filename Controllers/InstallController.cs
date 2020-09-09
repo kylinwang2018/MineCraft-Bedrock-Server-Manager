@@ -75,9 +75,13 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
                         pageHandler: null,
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
-
-                    await _emailSender.SendEmailAsync(model.Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    try{
+                       await _emailSender.SendEmailAsync(model.Input.Email, "Confirm your email",
+                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>."); 
+                    }catch{
+                        
+                    }
+                    
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
