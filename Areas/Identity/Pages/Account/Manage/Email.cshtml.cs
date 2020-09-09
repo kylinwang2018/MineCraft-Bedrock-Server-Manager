@@ -134,12 +134,17 @@ namespace MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account.Manage
                 pageHandler: null,
                 values: new { area = "Identity", userId = userId, code = code },
                 protocol: Request.Scheme);
-            await _emailSender.SendEmailAsync(
+            try{
+                await _emailSender.SendEmailAsync(
                 email,
                 "Confirm your email",
                 $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-            StatusMessage = "Verification email sent. Please check your email.";
+                StatusMessage = "Verification email sent. Please check your email.";
+            }catch{
+                StatusMessage = "Error: Email Setting Error. Please check your stmp server setting.";
+            }
+            
+            
             return RedirectToPage();
         }
     }
