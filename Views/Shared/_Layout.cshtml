@@ -51,46 +51,57 @@
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
                         <a class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
+                 ViewContext.RouteData.Values["Action"].ToString() == "Status" ?
                  "nav-link active" : "nav-link")"
                            asp-area=""
-                           asp-controller="Home"
-                           asp-action="Privacy">
+                           asp-controller="Server"
+                           asp-action="Status">
                             <span data-feather="activity"></span>
                             Status
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
+                 ViewContext.RouteData.Values["Action"].ToString() == "Update" ?
                   "nav-link active" : "nav-link")"
                            asp-area=""
-                           asp-controller="Home"
-                           asp-action="Privacy">
+                           asp-controller="Server"
+                           asp-action="Update">
                             <span data-feather="refresh-cw"></span>
                             Update
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
+                 ViewContext.RouteData.Values["Action"].ToString() == "Configuration" ?
                   "nav-link active" : "nav-link")"
                            asp-area=""
-                           asp-controller="Home"
-                           asp-action="Privacy">
+                           asp-controller="Server"
+                           asp-action="Configuration">
                             <span data-feather="sliders"></span>
-                            Configuation
+                            Configuration
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="@(ViewContext.RouteData.Values["Action"] != null &&
-                 ViewContext.RouteData.Values["Action"].ToString() == "Privacy" ?
+                 ViewContext.RouteData.Values["Action"].ToString() == "Permissions" ?
                   "nav-link active" : "nav-link")"
                            asp-area=""
-                           asp-controller="Home"
-                           asp-action="Privacy">
+                           asp-controller="Server"
+                           asp-action="Permissions">
                             <span data-feather="unlock"></span>
                             Permissions
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="@(ViewContext.RouteData.Values["Action"] != null &&
+                 ViewContext.RouteData.Values["Action"].ToString() == "Backup" ?
+                  "nav-link active" : "nav-link")"
+                           asp-area=""
+                           asp-controller="Server"
+                           asp-action="Backup">
+                            <span data-feather="package"></span>
+                            Backup
                         </a>
                     </li>
                 </ul>
