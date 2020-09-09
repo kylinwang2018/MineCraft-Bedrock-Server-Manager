@@ -130,7 +130,7 @@ namespace MineCraft_Bedrock_Server_Manager.Data
                                             reader[property.Name], convertTo), null);
                                     }
                                 }
-                                catch (IndexOutOfRangeException e)
+                                catch
                                 {
                                     // Which means that no property name as same as it in the Db table
                                     // so, do nothing, leave it as null or default.

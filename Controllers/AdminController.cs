@@ -51,7 +51,7 @@ INNER JOIN [AspNetUserRoles] AS [a0] ON [a].[Id] = [a0].[UserId]
 INNER JOIN [AspNetRoles] AS [a1] ON [a0].[RoleId] = [a1].[Id]";
                 model.UserWithRoles = SQLiteHelper.GetDataTableFromSQLAsync<UserWithRole>(cmd, "DefaultConnection").Result;
             }
-
+            _logger.LogInformation("Accessed Database to query all users");
             return model;
         }
 
@@ -63,10 +63,12 @@ INNER JOIN [AspNetRoles] AS [a1] ON [a0].[RoleId] = [a1].[Id]";
             if (user != null && !guid.Equals(currentUser.Id))
             {
                 await _userManager.DeleteAsync(user);
+                _logger.LogInformation("User(GUID: {0}) has been deleted",guid);
                 return Json(new { status = true});
             }
             else
             {
+                _logger.LogError("User cannot be find with GUID:" + guid);
                 return Json(new { status = false });
             }
         }
