@@ -67,17 +67,28 @@
         $(document).ready(function () {
             $(".delete-button").click(function () {
                 row = $(this).closest("tr");
-                userId = $(this).attr("data-userId")
+                userId = $(this).attr("data-userId");
                 $("#modalUserEmail").html($(this).attr("data-userEmail"));
                 $("#deleteModal").modal();
-                
+
             })
 
             $("#delete-confirmed").click(function () {
                 $("#deleteModal").modal("hide");
                 row.fadeOut("slow", function () {
-                    // TODO: delete from database
-                });                
+                    $.ajax({
+                        url: "/Admin/DeleteUser?guid=" + userId,
+                        type: "POST",
+                        cache: false,
+                        error: function (response) {
+                            location.reload(true);
+                        },
+                        success: function (response) {
+                            if (!response.status)
+                                location.reload(true);
+                        }
+                    });
+                });
             })
 
         });

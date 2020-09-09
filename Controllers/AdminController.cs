@@ -55,11 +55,20 @@ INNER JOIN [AspNetRoles] AS [a1] ON [a0].[RoleId] = [a1].[Id]";
             return model;
         }
 
-        [HttpDelete]
-        public IActionResult DeleteUser(string UserId)
+        [HttpPost]
+        public async Task<JsonResult> DeleteUser(string guid)
         {
-
-            return Json(new { status = true, data= GetUserWithRoles().UserWithRoles.ToList() });
+            var user = await _userManager.FindByIdAsync(guid);
+            var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            if (user != null && !guid.Equals(currentUser.Id))
+            {
+                await _userManager.DeleteAsync(user);
+                return Json(new { status = true});
+            }
+            else
+            {
+                return Json(new { status = false });
+            }
         }
     }
 }
