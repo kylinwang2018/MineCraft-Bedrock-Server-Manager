@@ -7,13 +7,17 @@
 
 <h5>Current version:</h5> <p id="p-current-version">No server installed</p>
 <h5>Latest version:</h5> <p id="p-latest-version"></p>
-<button class="btn btn-primary" id="btn-update" style="display:none">Update and Restart</button>
+                         <button class="btn btn-primary" id="btn-update" style="display:none">
+                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner-update" style="display:none"></span>
+                             Update and Restart
+                         </button>
 <button class="btn btn-secondary" id="btn-check-update">
     <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner-check" style="display:none"></span>
     Check updates
 </button>
 <p></p>
-<p>States.....</p>
+<div id="result-monitor">
+</div>
 
 @section Scripts {
 
@@ -22,7 +26,54 @@
         $(document).ready(function () {
 
             if ($("#p-current-version").html() === "No server installed") {
-                $("#btn-update").html("Install");
+                $("#btn-update").html(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner-update" style="display:none"></span>
+Install`);
+            };
+
+            $("#btn-update").click(function () {
+                $("#btn-update").prop("disabled", true);
+                $("#spinner-update").show();
+                eventMonitor();
+            });
+
+            function eventMonitor() {
+                var lastdata;
+                if (typeof (EventSource) !== "undefined") {
+                    appendLogger($("#result-monitor"), "Info", `Start update engine....`);
+                    var source = new EventSource("/Server/DownloadNewVersion");
+                    source.onmessage = function (event) {
+                        appendLogger($("#result-monitor"), "Info", event.data);
+                        lastdata = event.data;
+                    };
+                    source.onerror = function (event) {
+                        if (!lastdata.toLowerCase().includes("finished")) {
+                            appendLogger($("#result-monitor"), "Fatal", "Something failed.");
+                        }
+                        source.close();
+                    }
+                } else {
+                    appendLogger($("#result-monitor"), "Info", `Start update engine....`);
+                    // use ajax to connect other api 
+                }
+            };
+
+            function appendLogger(target, type, message) {
+                switch (type) {
+                    case "Info":
+                        target.append(`<span class="logger logger-info">[Info]</span> ` + message + "<br />");
+                        break;
+                    case "Warn":
+                        target.append(`<span class="logger logger-warn">[Warn]</span> ` + message + "<br />");
+                        break;
+                    case "Error":
+                        target.append(`<span class="logger logger-error">[Error]</span> ` + message + "<br />");
+                        break;
+                    case "Fatal":
+                        target.append(`<span class="logger logger-fatal">[Fatal]</span> ` + message + "<br />");
+                        break;
+                    default:
+                        target.append(`<span class="logger logger-info">[Info]</span> ` + message + "<br />");
+                }
             };
 
 

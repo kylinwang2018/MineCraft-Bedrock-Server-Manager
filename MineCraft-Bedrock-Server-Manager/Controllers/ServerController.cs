@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using MineCraft_Bedrock_Server_Manager.ServerControlHelpers;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using System.Text;
 
 namespace MineCraft_Bedrock_Server_Manager.Controllers
 {
@@ -61,6 +62,27 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
         [HttpGet]
         public async Task DownloadNewVersion()
         {
+            string[] data = new string[] {
+        "Hello World!",
+        "Hello Galaxy!",
+        "Hello Universe!",
+        "Hello Finished!"
+    };
+
+            Response.Headers.Add("Content-Type",
+        "text/event-stream");
+
+            for (int i = 0; i < data.Length; i++)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(5));
+                string dataItem = $"data: {data[i]}\n\n";
+                byte[] dataItemBytes =
+        ASCIIEncoding.ASCII.GetBytes(dataItem);
+                await Response.Body.WriteAsync
+        (dataItemBytes, 0, dataItemBytes.Length);
+                await Response.Body.FlushAsync();
+            }
+
             // check version
             // compaire with current version
             // download
@@ -70,7 +92,7 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
             // restart server
             // delete files
 
-            
+
         }
     }
 }
