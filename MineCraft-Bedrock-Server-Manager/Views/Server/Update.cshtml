@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Update";
+}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+    <h1 class="h2">@ViewData["Title"]</h1>
+</div>
+
+<h5>Current version:</h5> <p id="p-current-version">No server installed</p>
+<h5>Latest version:</h5> <p id="p-latest-version"></p>
+<button class="btn btn-primary" id="btn-update" style="display:none">Update and Restart</button>
+<button class="btn btn-secondary" id="btn-check-update">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" id="spinner-check" style="display:none"></span>
+    Check updates
+</button>
+<p></p>
+<p>States.....</p>
+
+@section Scripts {
+
+    <script>
+
+        $(document).ready(function () {
+
+            if ($("#p-current-version").html() === "No server installed") {
+                $("#btn-update").html("Install");
+            };
+
+
+            $("#btn-check-update").click(function () {
+                $(this).prop('disabled', true);
+                $("#spinner-check").show();
+                $.ajax({
+                    url: "/Server/GetLatestVersion",
+                    type: "GET",
+                    cache: false,
+                    error: function (response) {
+                        location.reload(true);
+                        hideCheckButton();
+                    },
+                    success: function (response) {
+                        if (!response.status)
+                            location.reload(true);
+                        $("#p-latest-version").html(response.data);
+                        hideCheckButton();
+
+                        if ($("#p-current-version").html() == response.data)
+                            $("#p-latest-version").append(" <b>(up-to-date)</b>");
+                        else
+                            $("#btn-update").show();
+                    }
+                });
+            });
+
+            function hideCheckButton() {
+                $("#btn-check-update").prop('disabled', false);
+                $("#btn-check-update").hide();
+                $("#spinner-check").hide();
+            }
+        });
+
+    </script>
+}
