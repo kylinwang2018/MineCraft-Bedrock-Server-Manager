@@ -24,7 +24,7 @@
         @foreach (var item in Model.UserWithRoles)
         {
             <tr>
-                <td scope="row">@item.Email</td>
+                <th scope="row">@item.Email</th>
                 <td>@item.Role</td>
                 <td>
                     <button class="btn btn-sm btn-danger delete-button" data-userId="@item.Id" data-userEmail="@item.Email"
