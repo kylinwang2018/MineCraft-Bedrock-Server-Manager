@@ -32,9 +32,8 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
             return pageContents.Substring(urlStartIndex, urlEndIndex - urlStartIndex + 4);
         }
 
-        public async static Task<string> GetLatestVersionNum(string htmlPageUrl)
+        public static string GetLatestVersionNum(string downloadUrl)
         {
-            var downloadUrl = await GetDownloadUrl(htmlPageUrl);
             if (downloadUrl != null)
             {
                 var headerString = "bedrock-server-";
