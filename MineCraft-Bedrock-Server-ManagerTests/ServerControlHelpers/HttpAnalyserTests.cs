@@ -41,8 +41,8 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers.Tests
         [TestMethod()]
         public void GetLatestVersionNum_ValidUrl_ShouldReturnVersionNumber()
         {
-            var url = "https://www.minecraft.net/en-us/download/server/bedrock";
-            var analyser = HttpAnalyser.GetLatestVersionNum(url).Result;
+            var url = "https://minecraft.azureedge.net/bin-linux/bedrock-server-1.16.40.02.zip";
+            var analyser = HttpAnalyser.GetLatestVersionNum(url);
 
             Assert.IsTrue(analyser.Contains("."));
             Assert.IsTrue(analyser.LastIndexOf(".") < analyser.Length - 1);
@@ -52,7 +52,7 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers.Tests
         public void GetLatestVersionNum_InValidUrl_ShouldReturnNull()
         {
             var url = "https://www.minecraft.net/en-us/sssss";
-            var analyser = HttpAnalyser.GetLatestVersionNum(url).Result;
+            var analyser = HttpAnalyser.GetLatestVersionNum(url);
 
             Assert.IsNull(analyser);
         }

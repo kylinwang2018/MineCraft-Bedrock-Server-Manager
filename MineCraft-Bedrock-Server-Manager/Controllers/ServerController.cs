@@ -93,7 +93,6 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
             // extract version
             var newVersion = HttpAnalyser.GetLatestVersionNum(downlaodUrl);
 
-
             // compaire with current version
             // download
             var downloader = new Downloader(downlaodUrl, "Downloads/new.zip");
