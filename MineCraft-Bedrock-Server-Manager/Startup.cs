@@ -13,7 +13,7 @@ using MineCraft_Bedrock_Server_Manager.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using MineCraft_Bedrock_Server_Manager.Models;
+using MineCraft_Bedrock_Server_Manager.ServerControlHelpers;
 using MineCraft_Bedrock_Server_Manager.Services;
 
 namespace MineCraft_Bedrock_Server_Manager

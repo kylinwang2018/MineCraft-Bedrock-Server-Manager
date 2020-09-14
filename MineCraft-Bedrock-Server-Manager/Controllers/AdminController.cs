@@ -1,8 +1,3 @@
-using System.Net;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -11,20 +6,18 @@ using Microsoft.AspNetCore.Authorization;
 using MineCraft_Bedrock_Server_Manager.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
 
 namespace MineCraft_Bedrock_Server_Manager.Controllers
 {
     [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<AdminController> _logger;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
 
         public AdminController(
-            ILogger<HomeController> logger,
+            ILogger<AdminController> logger,
             UserManager<IdentityUser> userManager,
             RoleManager<IdentityRole> roleManager
             )
