@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Text;
 using System.IO;
+using System.IO.Compression;
 
 namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
 {
@@ -32,7 +33,6 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
             if (updateLock)
             {
                 await SendEvent("Error: The server is being updated at the background.");
-                _logger.LogWarning("Someone is trying to update server application while the server is being updated at the background.");
                 return;
             }
 
@@ -59,25 +59,35 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
 
             Directory.CreateDirectory(downloadDir);
             Directory.CreateDirectory(serverDir);
+            Directory.CreateDirectory(newServerPath);
             //if ()
 
 
             // download
             var downloader = new Downloader(downlaodUrl, downloadPath);
-            await SendEvent("Download Started.");
+            await SendEvent("Downloading...");
             await downloader.BeginDownload(async (object sender, AsyncCompletedEventArgs e) =>
             {
                 if (e.Cancelled)
-                    await SendEvent("Error: Download Failed.");
+                    await SendEvent("Error: Download failed.");
                 else
-                    await SendEvent("Download Completed.");
+                    await SendEvent("Download completed.");
             });
 
             // unzip
-            // stop
+            await SendEvent("Extracting zip file to local path...");
+            await Task.Run(()=>{
+                ZipFile.ExtractToDirectory(downloadPath,newServerPath,true);
+            });
+
+            await SendEvent("Extracting completed.");
+            // stop server
             // copy files
             // restart server
             // delete files
+            await Task.Run(()=>{
+                File.Delete(downloadPath);
+            });
 
             updateLock = false;
         }
@@ -88,6 +98,10 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
 
         private async Task SendEvent(string message)
         {
+            if (message.ToLower().Contains("error"))
+                _logger.LogError(message);
+            else
+                _logger.LogInformation(message);
             string dataItem = $"data: {message}\n\n";
             byte[] dataItemBytes = ASCIIEncoding.ASCII.GetBytes(dataItem);
             await HttpResponse.Body.WriteAsync(dataItemBytes, 0, dataItemBytes.Length);
