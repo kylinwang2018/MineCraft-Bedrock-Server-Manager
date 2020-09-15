@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using MineCraft_Bedrock_Server_Manager.ServerControlHelpers;
+using MineCraft_Bedrock_Server_Manager.Services;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
@@ -15,14 +16,17 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
     {
         private readonly ILogger<ServerController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly ServerOprationService _serverOpreationService;
 
         public ServerController(
             ILogger<ServerController> logger,
-            IConfiguration configuration
+            IConfiguration configuration,
+            ServerOprationService serverOprationService
             )
         {
             _logger = logger;
             _configuration = configuration;
+            _serverOpreationService = serverOprationService;
         }
 
         public IActionResult Status()
@@ -67,7 +71,7 @@ namespace MineCraft_Bedrock_Server_Manager.Controllers
         [HttpGet]
         public async Task DownloadNewVersion()
         {
-            var updateEngine = new UpdateEngine(_configuration,_logger);
+            var updateEngine = new UpdateEngine(_configuration,_logger,_serverOpreationService);
             updateEngine.HttpResponse = Response;
             await updateEngine.Run();
         }

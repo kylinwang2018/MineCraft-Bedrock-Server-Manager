@@ -7,23 +7,27 @@ using System.ComponentModel;
 using System.Text;
 using System.IO;
 using System.IO.Compression;
+using MineCraft_Bedrock_Server_Manager.Services;
 
 namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
 {
     public class UpdateEngine : IUpdateEngine
     {
-        public HttpResponse HttpResponse {get;set;}
+        public HttpResponse HttpResponse { get; set; }
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
+        private readonly ServerOprationService _serverOpreationService;
 
         private static bool updateLock;
 
         public UpdateEngine(
             IConfiguration configuration,
-            ILogger logger)
+            ILogger logger,
+            ServerOprationService serverOprationService)
         {
             _logger = logger;
             _configuration = configuration;
+            _serverOpreationService = serverOprationService;
         }
 
         public async Task Run()
@@ -76,23 +80,27 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
 
             // unzip
             await SendEvent("Extracting zip file to local path...");
-            await Task.Run(()=>{
-                ZipFile.ExtractToDirectory(downloadPath,newServerPath,true);
+            await Task.Run(() =>
+            {
+                ZipFile.ExtractToDirectory(downloadPath, newServerPath, true);
             });
 
             await SendEvent("Extracting completed.");
             // stop server
+
+            
             // copy files
             // restart server
+
+
             // delete files
-            await Task.Run(()=>{
-                File.Delete(downloadPath);
-            });
+            await DeleteFile(downloadPath);
 
             updateLock = false;
         }
 
-        public async Task Stop(){
+        public async Task Stop()
+        {
 
         }
 
@@ -106,6 +114,12 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
             byte[] dataItemBytes = ASCIIEncoding.ASCII.GetBytes(dataItem);
             await HttpResponse.Body.WriteAsync(dataItemBytes, 0, dataItemBytes.Length);
             await HttpResponse.Body.FlushAsync();
+        }
+
+        private async Task DeleteFile(string path)
+        {
+            File.Delete(path);
+            while (File.Exists(path)) await Task.Delay(100);
         }
 
     }

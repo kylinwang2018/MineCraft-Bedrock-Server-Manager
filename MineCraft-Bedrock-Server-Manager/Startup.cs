@@ -48,6 +48,8 @@ namespace MineCraft_Bedrock_Server_Manager
                      Configuration.GetValue<bool>("EmailSender:EnableSSL"),
                      Configuration["EmailSender:UserName"],
                      Configuration["EmailSender:Password"]));
+            services.AddSingleton<ServerOprationService>();
+            services.AddHostedService<ServerOprationService>(provider => provider.GetService<ServerOprationService>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
