@@ -1,12 +1,13 @@
-using System.Net.NetworkInformation;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using System.ComponentModel;
 using System.Text;
 using System.IO;
 using System.IO.Compression;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+
 using MineCraft_Bedrock_Server_Manager.Services;
 
 namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
@@ -87,7 +88,7 @@ namespace MineCraft_Bedrock_Server_Manager.ServerControlHelpers
 
             await SendEvent("Extracting completed.");
             // stop server
-
+            
             
             // copy files
             // restart server

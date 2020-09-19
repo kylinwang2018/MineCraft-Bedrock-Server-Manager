@@ -1,11 +1,7 @@
-using Microsoft.AspNetCore.Identity.UI.Services;
-using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
-using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace MineCraft_Bedrock_Server_Manager.Services
 {

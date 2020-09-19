@@ -1,17 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using MineCraft_Bedrock_Server_Manager.Models;
 using Microsoft.AspNetCore.Identity;
-using MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
-using System.Text.Encodings.Web;
+using Microsoft.Extensions.Logging;
+using MineCraft_Bedrock_Server_Manager.Models;
+using MineCraft_Bedrock_Server_Manager.Areas.Identity.Pages.Account;
 
 namespace MineCraft_Bedrock_Server_Manager.Controllers
 {
